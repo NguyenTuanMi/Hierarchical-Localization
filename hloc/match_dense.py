@@ -60,6 +60,23 @@ confs = {
         "max_error": 4,  # max error for assigned keypoints (in px)
         "cell_size": 4,  # size of quantization patch (max 1 kp/patch)
     },
+    "aspanformer": {
+        "output": "matches-aspanformer",
+        "model": {
+            "name": "aspanformer",
+            "weights": "outdoor",
+            "max_keypoints": 2000,
+            "match_threshold": 0.2,
+        },
+        "preprocessing": {
+            "grayscale": True,
+            "force_resize": True,
+            "resize_max": 1024,
+            "width": 640,
+            "height": 480,
+            "dfactor": 8,
+        },
+    },
 }
 
 
