@@ -6,6 +6,7 @@ sys.path.append(str(Path(__file__).parent / "../../third_party"))
 
 from ASpanFormer.src.ASpanFormer.aspanformer import ASpanFormer as ASpanFormer_
 from ASpanFormer.src.config.default import get_cfg_defaults
+from ASpanFormer.src.utils.misc import lower_config
 from ..utils.base_model import BaseModel
 from .. import logger
 
@@ -16,7 +17,7 @@ class ASpanFormer(BaseModel):
         "model_name": "outdoor.ckpt",
         "match_threshold": 0.2,
         "sinkhorn_iterations": 20,
-        "max_num_matches": 2048,
+        "max_keypoints": 2048,
         "config_path": ASPANF0RMER_PATH / "configs/aspan/outdoor/aspan_test.py",
     }
     required_inputs = ["image0", "image1"]
@@ -54,14 +55,16 @@ class ASpanFormer(BaseModel):
         }
         scores = pred["mconf"]
 
-        top_k = self.conf["max_num_matches"]
+        top_k = self.conf["max_keypoints"]
         if top_k is not None and len(scores) > top_k:
             keep = torch.argsort(scores, descending=True)[:top_k]
-            pred["keypoints0"], pred["keypoints1"] = (
+            scores = scores[keep]
+            pred["keypoints0"], pred["keypoints1"], pred["mconf"] = (
                 pred["keypoints0"][keep],
                 pred["keypoints1"][keep],
+                scores
             )
-            scores = scores[keep]
+        pred["scores"] = scores 
         return pred
 
 
