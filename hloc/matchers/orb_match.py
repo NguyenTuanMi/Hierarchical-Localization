@@ -21,8 +21,8 @@ def tens_to_cv(x):
 
 class BinaryNearestNeighbor(BaseModel):
     default_conf = {
-        "ratio_threshold": None,
-        "distance_threshold_bits": None,
+        "ratio_threshold": 0.9,
+        "distance_threshold_bits": 75,
         "do_mutual_check": True,
     }
 

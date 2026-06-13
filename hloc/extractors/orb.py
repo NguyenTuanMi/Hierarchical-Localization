@@ -10,9 +10,9 @@ EPS = 1e-6
 class ORB(BaseModel):
     default_conf = {
         "options": {
-            "nfeatures": 5000,
+            "nfeatures": 900,
             "scaleFactor": 1.2,
-            "nlevels": 8,
+            "nlevels": 7,
             "edgeThreshold": 31,
             "firstLevel": 0,
             "WTA_K": 2,

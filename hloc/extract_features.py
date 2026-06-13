@@ -81,7 +81,8 @@ confs = {
         "model": {"name": "orb"},
         "preprocessing": {
             "grayscale": True,
-            "resize_max": 1600,
+            "resize_max": 1280,
+            "resize_force": True,
         },
     },
     "d2net-ss": {
