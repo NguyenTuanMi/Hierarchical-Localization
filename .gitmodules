@@ -10,6 +10,6 @@
 [submodule "third_party/r2d2"]
 	path = third_party/r2d2
 	url = https://github.com/naver/r2d2.git
-[submodule "/home/ia/ros2_ws/Hierarchical-Localization/third_party/pram"]
-	path = /home/ia/ros2_ws/Hierarchical-Localization/third_party/pram
+[submodule "third_party/pram"]
+	path = third_party/pram
 	url = https://github.com/NguyenTuanMi/pram.git
