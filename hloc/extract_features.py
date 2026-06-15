@@ -65,6 +65,18 @@ confs = {
             "resize_max": 1600,
         },
     },
+    "sfd2": {
+        "output": "feats-sfd2-n4096-r1024",
+        "model": {
+            "name": "sfd2",
+            "nms_radius": 3,
+            "max_keypoints": 4096,
+        },
+        "preprocessing": {
+            "grayscale": False,
+            "resize_max": 1024,
+        },
+    },
     "r2d2": {
         "output": "feats-r2d2-n5000-r1024",
         "model": {

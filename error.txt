@@ -1,0 +1,76 @@
+---------------------------------------------------------------------------
+RuntimeError                              Traceback (most recent call last)
+Cell In[6], line 1
+----> 1 sfm_matches = match_features.main(
+      2     matcher_conf, sfm_pairs, feature_conf["output"], outputs
+      3 )
+
+File ~/ros2_ws/Hierarchical-Localization/hloc/match_features.py:181, in main(conf, pairs, features, export_dir, matches, features_ref, overwrite)
+    179 if features_ref is None:
+    180     features_ref = features_q
+--> 181 match_from_paths(conf, pairs, matches, features_q, features_ref, overwrite)
+    183 return matches
+
+File ~/anaconda3/envs/hlock/lib/python3.12/site-packages/torch/utils/_contextlib.py:116, in context_decorator.<locals>.decorate_context(*args, **kwargs)
+    113 @functools.wraps(func)
+    114 def decorate_context(*args, **kwargs):
+    115     with ctx_factory():
+--> 116         return func(*args, **kwargs)
+
+File ~/ros2_ws/Hierarchical-Localization/hloc/match_features.py:251, in match_from_paths(conf, pairs_path, match_path, feature_path_q, feature_path_ref, overwrite)
+    246 for idx, data in enumerate(tqdm(loader, smoothing=0.1)):
+    247     data = {
+    248         k: v if k.startswith("image") else v.to(device, non_blocking=True)
+    249         for k, v in data.items()
+    250     }
+--> 251     pred = model(data)
+    252     pair = names_to_pair(*pairs[idx])
+    253     writer_queue.put((pair, pred))
+
+File ~/anaconda3/envs/hlock/lib/python3.12/site-packages/torch/nn/modules/module.py:1739, in Module._wrapped_call_impl(self, *args, **kwargs)
+   1737     return self._compiled_call_impl(*args, **kwargs)  # type: ignore[misc]
+   1738 else:
+-> 1739     return self._call_impl(*args, **kwargs)
+
+File ~/anaconda3/envs/hlock/lib/python3.12/site-packages/torch/nn/modules/module.py:1750, in Module._call_impl(self, *args, **kwargs)
+   1745 # If we don't have any hooks, we want to skip the rest of the logic in
+   1746 # this function, and just call forward.
+   1747 if not (self._backward_hooks or self._backward_pre_hooks or self._forward_hooks or self._forward_pre_hooks
+   1748         or _global_backward_pre_hooks or _global_backward_hooks
+   1749         or _global_forward_hooks or _global_forward_pre_hooks):
+-> 1750     return forward_call(*args, **kwargs)
+   1752 result = None
+   1753 called_always_called_hooks = set()
+
+File ~/ros2_ws/Hierarchical-Localization/hloc/utils/base_model.py:25, in BaseModel.forward(self, data)
+     23 for key in self.required_inputs:
+     24     assert key in data, "Missing key {} in data".format(key)
+---> 25 return self._forward(data)
+
+File ~/ros2_ws/Hierarchical-Localization/hloc/matchers/superglue.py:31, in SuperGlue._forward(self, data)
+     30 def _forward(self, data):
+---> 31     return self.net(data)
+
+File ~/anaconda3/envs/hlock/lib/python3.12/site-packages/torch/nn/modules/module.py:1739, in Module._wrapped_call_impl(self, *args, **kwargs)
+   1737     return self._compiled_call_impl(*args, **kwargs)  # type: ignore[misc]
+   1738 else:
+-> 1739     return self._call_impl(*args, **kwargs)
+
+File ~/anaconda3/envs/hlock/lib/python3.12/site-packages/torch/nn/modules/module.py:1750, in Module._call_impl(self, *args, **kwargs)
+   1745 # If we don't have any hooks, we want to skip the rest of the logic in
+   1746 # this function, and just call forward.
+   1747 if not (self._backward_hooks or self._backward_pre_hooks or self._forward_hooks or self._forward_pre_hooks
+   1748         or _global_backward_pre_hooks or _global_backward_hooks
+   1749         or _global_forward_hooks or _global_forward_pre_hooks):
+-> 1750     return forward_call(*args, **kwargs)
+   1752 result = None
+   1753 called_always_called_hooks = set()
+
+File ~/ros2_ws/Hierarchical-Localization/hloc/extractors/../../third_party/SuperGluePretrainedNetwork/models/superglue.py:249, in SuperGlue.forward(self, data)
+    246 kpts1 = normalize_keypoints(kpts1, data['image1'].shape)
+    248 # Keypoint MLP encoder.
+--> 249 desc0 = desc0 + self.kenc(kpts0, data['scores0'])
+    250 desc1 = desc1 + self.kenc(kpts1, data['scores1'])
+    252 # Multi-layer Transformer network.
+
+RuntimeError: The size of tensor a (128) must match the size of tensor b (256) at non-singleton dimension 1
