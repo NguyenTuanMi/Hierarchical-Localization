@@ -76,6 +76,15 @@ confs = {
             "resize_max": 1024,
         },
     },
+    "orb": {
+        "output": "feats-orb",
+        "model": {"name": "orb"},
+        "preprocessing": {
+            "grayscale": True,
+            "resize_max": 1280,
+            "resize_force": True,
+        },
+    },
     "d2net-ss": {
         "output": "feats-d2net-ss",
         "model": {
