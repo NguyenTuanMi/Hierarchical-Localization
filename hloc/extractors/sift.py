@@ -82,7 +82,7 @@ class SIFT(BaseModel):
     default_conf = {
         "rootsift": True,
         "nms_radius": 0,  # None to disable filtering entirely.
-        "max_keypoints": 4096,
+        "max_keypoints": 5000,
         "backend": "opencv",  # in {opencv, pycolmap, pycolmap_cpu, pycolmap_cuda}
         "detection_threshold": 0.0066667,  # from COLMAP
         "edge_threshold": 10,
