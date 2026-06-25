@@ -60,6 +60,20 @@ confs = {
         "max_error": 4,  # max error for assigned keypoints (in px)
         "cell_size": 4,  # size of quantization patch (max 1 kp/patch)
     },
+    "gluestick": {
+        "output": "matches-gluestick",
+        "model": {
+            "name": "gluestick",        # → hloc/matchers/gluestick.py
+            "extractor": {
+                "max_num_keypoints": 1000,
+                "detection_threshold": 0.005,
+            },
+        },
+        "preprocessing": {
+            "grayscale": True,          # GlueStick uses grayscale SuperPoint
+            "resize_max": 1600,
+        },
+    },
 }
 
 
