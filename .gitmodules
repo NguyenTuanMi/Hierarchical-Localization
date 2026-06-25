@@ -10,3 +10,6 @@
 [submodule "third_party/r2d2"]
 	path = third_party/r2d2
 	url = https://github.com/naver/r2d2.git
+[submodule "third_party/GlueStick"]
+	path = third_party/GlueStick
+	url = https://github.com/NguyenTuanMi/GlueStick.git
