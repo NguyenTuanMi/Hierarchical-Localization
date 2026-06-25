@@ -51,23 +51,51 @@ features, sfm_matches = match_dense.main(
     overwrite=False,
 )
 
+print(features)
+print(sfm_matches)
+
 # ── COLMAP triangulation ───────────────────────────────────────────────
 reconstruction = triangulation.main(
-    reference_sfm=reference_sfm,
-    image_dir=images,
-    pairs=sfm_pairs,
-    features=features,
-    matches=sfm_matches,
-    colmap_path="colmap",
+    reference_sfm,
+    sift_model,
+    images,
+    sfm_pairs,
+    features,
+    sfm_matches,
 )
 
 # ── Query retrieval pairs ──────────────────────────────────────────────
+
 pairs_from_retrieval.main(
-    retrieval_path,
-    loc_pairs,
-    num_matched=num_loc,
-    db_descriptors=retrieval_path,
-    query_descriptors=retrieval_path,
+        retrieval_path,
+        loc_pairs,
+        num_matched=num_loc,
+        query_prefix="query",
+        db_model=reference_sfm,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
 )
 
 # ── Query feature matching ─────────────────────────────────────────────
@@ -78,6 +106,7 @@ loc_features, loc_matches = match_dense.main(
     export_dir=outputs,
     features_ref=features,   # reuse db keypoints from SfM
     overwrite=False,
+    matches=sfm_matches,
 )
 
 # ── hloc point-only localization ──────────────────────────────────────
